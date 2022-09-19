@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="menuForm">
+		<p:menubar styleClass="#{mbSec.lang.equals('ar')?'ui-menu-ar':'ui-menu'}">
+			<p:menuitem value="#{msg.menu_home}" outcome="/home.xhtml" />
+
+			<p:submenu label="#{msg.menu_basic}">
+				<p:menuitem value="#{msg.menu_welcome}" outcome="/secured/welcome.xhtml" />
+				<p:menuitem value="#{msg.menu_calculator}" outcome="/secured/calculator.xhtml" />
+				<p:menuitem value="#{msg.menu_pf_calculator}" outcome="/secured/pf-calculator.xhtml" />
+				<p:menuitem value="#{msg.menu_pf_comp}" outcome="/secured/pf-components.xhtml" />
+				<p:menuitem value="#{msg.menu_pf_pnl}" outcome="/secured/pf-components-panels.xhtml" />
+			</p:submenu>
+
+			<p:submenu label="#{msg.menu_db}">
+				<p:menuitem value="#{msg.menu_add_dept}" outcome="/secured/add-dept.xhtml" />
+				<p:menuitem value="#{msg.menu_add_emp}" outcome="/secured/add-emp.xhtml" />
+				<p:menuitem value="#{msg.menu_dept}" outcome="/secured/dept.xhtml" />
+				<p:menuitem value="#{msg.menu_emp}" outcome="/secured/emp.xhtml" />
+			</p:submenu>
+
+			<p:submenu label="#{msg.menu_jsf_websites}">
+				<p:menuitem value="Primefaces" url="https://primefaces.org/" target="_blank" />
+				<p:menuitem value="Omnifaces" url="https://omnifaces.org/" target="_blank" />
+				<p:menuitem value="Geeks for Geeks" url="https://www.geeksforgeeks.org/" target="_blank" />
+				<p:menuitem value="Javat Point" url="https://www.javatpoint.com/" target="_blank" />
+			</p:submenu>
+
+			<p:menuitem value="#{msg.menu_logout}" action="#{mbSec.logout()}" ajax="false" />
+
+		</p:menubar>
+	</h:form>
+
+	<br />
+
+</ui:composition>

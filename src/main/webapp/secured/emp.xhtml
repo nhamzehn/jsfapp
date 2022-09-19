@@ -1,0 +1,86 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Employees</ui:define>
+
+	<ui:define name="content">
+
+		<h:form id="form">
+
+			<p:panel>
+				<h3>
+					<h:outputText value="#{msg.menu_emp}" />
+				</h3>
+
+				<p:dataTable value="#{mbEmp.empTable}" var="e" filteredValue="#{mbEmp.filteredEmpTable}" paginator="true" rows="15"
+					paginatorTemplate="{PageLinks} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" paginatorPosition="bottom" sortMode="multiple"
+					stickyHeader="true">
+
+					<p:column headerText="#{msg.lbl_id}" sortBy="#{e.id}" filterBy="#{e.id}" filterMatchMode="contains">
+						<h:outputText value="#{e.id}" />
+					</p:column>
+
+					<p:column headerText="#{msg.lbl_name}" sortBy="#{e.name}" filterBy="#{e.name}" filterMatchMode="contains">
+						<h:outputText value="#{e.name}" />
+					</p:column>
+
+					<p:column headerText="#{msg.lbl_job}" sortBy="#{e.job}" filterBy="#{e.job}" filterMatchMode="contains">
+						<h:outputText value="#{e.job}" />
+					</p:column>
+
+					<p:column headerText="#{msg.lbl_hire_date}" sortBy="#{e.hireDate}" filterBy="#{e.hireDate}" filterMatchMode="contains">
+						<h:outputText value="#{e.hireDate}" />
+					</p:column>
+
+					<p:column headerText="#{msg.lbl_salary}" sortBy="#{e.salary}" filterBy="#{e.salary}" filterMatchMode="contains">
+						<h:outputText value="#{e.salary}" />
+					</p:column>
+
+					<p:column headerText="#{msg.lbl_comm}" sortBy="#{e.commission}" filterBy="#{e.commission}" filterMatchMode="contains">
+						<h:outputText value="#{e.commission}" />
+					</p:column>
+
+					<p:column headerText="#{msg.lbl_dept}" sortBy="#{e.dept.name}" filterBy="#{e.dept.name}" filterMatchMode="contains">
+						<h:outputText value="#{e.dept.name}" />
+					</p:column>
+
+					<p:column headerText="#{msg.btn_edit}">
+						<p:commandButton value="..." update=":form:editPnl" onclick="PF('empDlg').show()">
+							<f:setPropertyActionListener value="#{e}" target="#{mbEmp.selectedEmp}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column headerText="#{msg.btn_delete}">
+						<p:commandButton value="X" action="#{mbEmp.removeEmp()}" ajax="false">
+							<f:setPropertyActionListener value="#{e}" target="#{mbEmp.selectedEmp}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+
+			<p:commandButton value="#{msg.btn_report}" action="#{mbEmp.runEmpReport()}" ajax="false" />
+			<p:commandButton value="#{msg.btn_salgrade}" action="#{mbEmp.runSalaryGradeReport()}" ajax="false" />
+
+			<p:dialog header="Edit Employee" widgetVar="empDlg" modal="true">
+				<p:panelGrid id="editPnl" columns="2">
+					<p:outputLabel value="#{msg.lbl_id}" />
+					<h:outputText value="#{mbEmp.selectedEmp.id}" />
+
+					<p:outputLabel value="#{msg.lbl_name}" />
+					<p:inputText value="#{mbEmp.selectedEmp.name}" />
+
+					<p:outputLabel value="#{msg.lbl_job}" />
+					<p:inputText value="#{mbEmp.selectedEmp.job}" />
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msg.btn_save}" action="#{mbEmp.updateEmp()}" ajax="false" />
+						<p:commandButton value="#{msg.btn_back}" type="button" onclick="PF('empDlg').hide()" />
+					</f:facet>
+				</p:panelGrid>
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

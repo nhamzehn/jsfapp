@@ -1,0 +1,57 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Adding Employee</ui:define>
+
+	<ui:define name="content">
+
+		<h:form id="form">
+
+			<p:panelGrid columns="2">
+				<f:facet name="header">
+					<h:outputText value="#{msg.menu_add_emp}" />
+				</f:facet>
+
+				<ui:remove>
+					<p:outputLabel value="#{msg.lbl_id}" for="id" />
+					<p:inputNumber id="id" value="#{mbAddEmp.emp.id}" decimalPlaces="0" decimalSeparator=" " thousandSeparator=" " required="true"
+						requiredMessage="#{msg.msg_required} - #{msg.lbl_id}" />
+				</ui:remove>
+
+				<p:outputLabel value="#{msg.lbl_name}" for="name" />
+				<p:inputText id="name" value="#{mbAddEmp.emp.name}" maxlength="10" required="true"
+					requiredMessage="#{msg.msg_required} - #{msg.lbl_name}" validatorMessage="#{msg.msg_validate - msg.lbl_name}" />
+
+				<p:outputLabel value="#{msg.lbl_job}" for="job" />
+				<h:selectOneMenu id="job" value="#{mbAddEmp.emp.job}" required="true" requiredMessage="#{msg.msg_required} - #{msg.lbl_job}"
+					styleClass="selectonemenu">
+					<f:selectItem itemLabel="#{msg.lbl_select_one}" itemValue="" />
+					<f:selectItems value="#{mbAddEmp.jobTable}" var="j" itemLabel="#{j}" itemValue="#{j}" />
+				</h:selectOneMenu>
+
+				<p:outputLabel value="#{msg.lbl_hire_date}" for="hiredate" />
+				<p:calendar id="hiredate" value="#{mbAddEmp.emp.hireDate}" pattern="dd/MM/yyyy" required="true"
+					requiredMessage="#{msg.msg_required} - #{msg.lbl_hire_date}" />
+
+				<p:outputLabel value="#{msg.lbl_salary}" for="sal" />
+				<p:spinner id="sal" value="#{mbAddEmp.emp.salary}" min="500" max="5000" stepFactor="50" required="true"
+					requiredMessage="#{msg.msg_required} - #{msg.lbl_salary}" />
+
+				<p:outputLabel value="#{msg.lbl_comm}" for="comm" />
+				<p:spinner id="comm" value="#{mbAddEmp.emp.commission}" min="0" max="50" stepFactor="5" />
+
+				<p:outputLabel value="#{msg.lbl_dept}" for="dept" />
+				<h:selectOneMenu id="dept" value="#{mbAddEmp.emp.dept.id}" required="true" requiredMessage="#{msg.msg_required} - #{msg.lbl_dept}"
+					styleClass="selectonemenu">
+					<f:selectItem itemLabel="#{msg.lbl_select_one}" itemValue="" />
+					<f:selectItems value="#{mbAddEmp.deptTable}" var="d" itemLabel="#{d.name}" itemValue="#{d.id}" />
+				</h:selectOneMenu>
+
+				<f:facet name="footer">
+					<p:commandButton value="#{msg.btn_save}" action="#{mbAddEmp.save()}" ajax="false" />
+				</f:facet>
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

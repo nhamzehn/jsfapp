@@ -1,0 +1,64 @@
+package mb;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import bean.Dept;
+import dao.DeptDAO;
+import report.Report;
+
+@ViewScoped
+@ManagedBean(name = "mbDept")
+public class MBDept {
+
+	private List<Dept> deptTable;
+	private Dept selectedDept;
+	private DeptDAO deptDAO;
+
+	@PostConstruct
+	public void init() {
+		deptDAO = new DeptDAO();
+		deptTable = deptDAO.selectAll();
+		selectedDept = new Dept();
+	}
+	
+	public String updateDept() {
+		deptDAO.update(selectedDept);
+		deptTable = deptDAO.selectAll();
+		return null;
+	}
+
+	public String removeDept() {
+		deptDAO.delete(selectedDept.getId());
+		deptTable = deptDAO.selectAll();
+		return null;
+	}
+	
+	public String runDeptReport() throws Exception {
+		
+		Report report = new Report();
+		report.runPdf("emps-per-dept.jasper", null);
+		
+		return null;
+	}
+
+	public List<Dept> getDeptTable() {
+		return deptTable;
+	}
+
+	public void setDeptTable(List<Dept> deptTable) {
+		this.deptTable = deptTable;
+	}
+
+	public Dept getSelectedDept() {
+		return selectedDept;
+	}
+
+	public void setSelectedDept(Dept selectedDept) {
+		this.selectedDept = selectedDept;
+	}
+
+}

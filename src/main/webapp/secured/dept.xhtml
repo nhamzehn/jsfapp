@@ -1,0 +1,81 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="title">Departments</ui:define>
+	
+	<ui:define name="content">
+
+		<h:form id="form">
+
+			<!--  
+		<h:outputText id="abcd" value="ABCDEFG" />
+		<context-param>
+			<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+			<param-value>true</param-value>
+		</context-param>
+		-->
+
+			<p:panel>
+				<h3><h:outputText value="#{msg.menu_dept}" /></h3>
+				
+				<p:dataTable value="#{mbDept.deptTable}" var="d">
+
+					<p:column headerText="#{msg.lbl_id}" sortBy="#{d.id}">
+						<h:outputText value="#{d.id}" />
+					</p:column>
+
+					<p:column headerText="#{msg.lbl_name}" sortBy="#{d.name}">
+						<h:outputText value="#{d.name}" />
+					</p:column>
+
+					<p:column headerText="#{msg.lbl_loc}" sortBy="#{d.location}">
+						<h:outputText value="#{d.location}" />
+					</p:column>
+
+					<p:column headerText="#{msg.btn_edit}">
+						<p:commandButton value="..." update=":form:editPnl" process="@this" onclick="PF('deptDlg').show()">
+							<f:setPropertyActionListener value="#{d}" target="#{mbDept.selectedDept}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column headerText="#{msg.btn_delete}">
+						<p:commandButton value="X" action="#{mbDept.removeDept()}" ajax="false">
+							<f:setPropertyActionListener value="#{d}" target="#{mbDept.selectedDept}" />
+						</p:commandButton>
+					</p:column>
+
+					<f:facet name="footer">
+						<h:outputText value="#{msg.lbl_sum} #{mbDept.deptTable.size()}" />
+					</f:facet>
+
+				</p:dataTable>
+				
+				<p:commandButton value="#{msg.btn_report}" action="#{mbDept.runDeptReport()}" ajax="false"/>
+				
+			</p:panel>
+
+			<p:dialog header="#{msg.lbl_edit_dept}" widgetVar="deptDlg" modal="true">
+
+				<p:panelGrid id="editPnl" columns="2">
+					<p:outputLabel value="#{msg.lbl_id}" />
+					<h:outputText value="#{mbDept.selectedDept.id}" />
+
+					<p:outputLabel value="#{msg.lbl_name}" />
+					<p:inputText value="#{mbDept.selectedDept.name}" />
+
+					<p:outputLabel value="#{msg.lbl_loc}" />
+					<p:inputText value="#{mbDept.selectedDept.location}" />
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msg.btn_save}" action="#{mbDept.updateDept()}" ajax="false" />
+						<p:commandButton value="#{msg.btn_back}" type="button" onclick="PF('deptDlg').hide()" />
+					</f:facet>
+				</p:panelGrid>
+
+			</p:dialog>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

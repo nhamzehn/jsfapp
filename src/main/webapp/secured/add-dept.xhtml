@@ -1,0 +1,36 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Adding Department</ui:define>
+	<ui:define name="content">
+
+		<h:form id="form">
+
+			<p:panelGrid columns="2">
+				<f:facet name="header">
+					<h:outputText value="#{msg.menu_add_dept}" />
+				</f:facet>
+
+				<ui:remove>
+					<p:outputLabel value="#{msg.lbl_id}" for="id" />
+					<p:inputNumber id="id" value="#{mbAddDept.dept.id}" decimalPlaces="0" decimalSeparator=" " thousandSeparator=" " required="true"
+						requiredMessage="Please enter department id" />
+				</ui:remove>
+
+				<p:outputLabel value="#{msg.lbl_name}" for="name" />
+				<p:inputText id="name" value="#{mbAddDept.dept.name}" required="true" requiredMessage="Please enter department name" maxlength="14"
+					validatorMessage="Please check name" />
+
+				<p:outputLabel value="#{msg.lbl_loc}" for="loc" />
+				<p:inputText id="loc" value="#{mbAddDept.dept.location}" required="true" requiredMessage="Please enter location" maxlength="13"
+					validatorMessage="Please check location" />
+
+				<f:facet name="footer">
+					<p:commandButton value="#{msg.btn_save}" action="#{mbAddDept.save()}" ajax="false" />
+				</f:facet>
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

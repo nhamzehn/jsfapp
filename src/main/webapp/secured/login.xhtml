@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<h:form id="form">
+		<p:growl showDetail="true">
+			<p:autoUpdate />
+		</p:growl>
+
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<h:outputText value="Login Page" />
+			</f:facet>
+
+			<p:outputLabel value="Email" for="email" />
+			<p:inputText id="email" value="#{mbLogin.user.email}" required="true" requiredMessage="Please enter email" />
+
+			<p:outputLabel value="Password" for="pwd" />
+			<p:password id="pwd" value="#{mbLogin.user.password}" required="true" requiredMessage="Please enter password" />
+
+			<f:facet name="footer">
+				<p:commandButton value="Login" action="#{mbLogin.submit()}" ajax="false" />
+				<p:commandButton type="reset" value="Reset" />
+			</f:facet>
+		</p:panelGrid>
+
+	</h:form>
+</h:body>
+</html>

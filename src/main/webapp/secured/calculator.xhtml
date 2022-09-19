@@ -1,0 +1,31 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:define name="title">Calculator</ui:define>
+	<ui:define name="content">
+
+		<h:form id="form">
+			<h:panelGrid columns="2">
+				<f:facet name="header">
+					<h:outputText value="#{msg.menu_calculator}" />
+				</f:facet>
+
+				<h:outputLabel value="#{msg.lbl_number1}" for="n1" />
+				<h:inputText id="n1" value="#{mbCalc.number1}" />
+
+				<h:outputLabel value="#{msg.lbl_number2}" for="n2" />
+				<h:inputText id="n2" value="#{mbCalc.number2}" />
+
+				<h:outputLabel value="#{msg.lbl_result}" />
+				<h:outputText id="rslt" value="#{mbCalc.result}" />
+
+				<f:facet name="footer">
+					<h:commandButton action="#{mbCalc.add()}" value="+" />
+					<h:commandButton action="#{mbCalc.substract()}" value="-" />
+					<h:commandButton action="#{mbCalc.multiply()}" value="*" />
+					<h:commandButton action="#{mbCalc.divide()}" value="/" />
+				</f:facet>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
